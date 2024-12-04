@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>To-Do List with Table</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Welcome, User!</h1>
+    <span><h2><img id="tick"src="image.png">Your To-Do List</h2></span>
+  </header>
+  <div id="todo-container">
+    <form id="todo-form">
+      <input type="text" id="task-input" placeholder="Task" required>
+      <select id="type-select">
+        <option value="Work">Work</option>
+        <option value="Personal">Personal</option>
+        <option value="Other">Other</option>
+      </select>
+      <select id="status-select">
+        <option value="Pending">Pending</option>
+        <option value="In Progress">In Progress</option>
+        <option value="Completed">Completed</option>
+      </select>
+      <input type="text" id="reminder-input" placeholder="Reminder (e.g., 2024-12-04 10:00)">
+      <button type="submit">Add Task</button>
+    </form>
+    <table>
+      <thead>
+        <tr>
+          <th>Sn</th>
+          <th>Tasks</th>
+          <th>Type</th>
+          <th>Status</th>
+          <th>Reminder</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="task-table-body">
+        <!-- Tasks will be added dynamically here -->
+      </tbody>
+    </table>
+  </div>
+
+  <script>
+    const form = document.getElementById('todo-form');
+    const taskInput = document.getElementById('task-input');
+    const typeSelect = document.getElementById('type-select');
+    const statusSelect = document.getElementById('status-select');
+    const reminderInput = document.getElementById('reminder-input');
+    const tableBody = document.getElementById('task-table-body');
+
+    let taskCount = 0;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const task = taskInput.value.trim();
+      const type = typeSelect.value;
+      const status = statusSelect.value;
+      const reminder = reminderInput.value.trim();
+
+      if (task) {
+        taskCount++;
+        const row = document.createElement('tr');
+        row.innerHTML = `
+          <td>${taskCount}</td>
+          <td><input type="text" value="${task}" /></td>
+          <td>
+            <select>
+              <option value="Work" ${type === 'Work' ? 'selected' : ''}>Work</option>
+              <option value="Personal" ${type === 'Personal' ? 'selected' : ''}>Personal</option>
+              <option value="Other" ${type === 'Other' ? 'selected' : ''}>Other</option>
+            </select>
+          </td>
+          <td>
+            <select>
+              <option value="Pending" ${status === 'Pending' ? 'selected' : ''}>Pending</option>
+              <option value="In Progress" ${status === 'In Progress' ? 'selected' : ''}>In Progress</option>
+              <option value="Completed" ${status === 'Completed' ? 'selected' : ''}>Completed</option>
+            </select>
+          </td>
+          <td><input type="text" value="${reminder}" /></td>
+          <td><button class="delete-btn">Delete</button></td>
+        `;
+        tableBody.appendChild(row);
+
+        // Add delete functionality
+        row.querySelector('.delete-btn').addEventListener('click', () => {
+          row.remove();
+          taskCount--;
+          updateSerialNumbers();
+        });
+
+        // Clear form
+        taskInput.value = '';
+        reminderInput.value = '';
+        taskInput.focus();
+      }
+    });
+
+    function updateSerialNumbers() {
+      let rows = tableBody.querySelectorAll('tr');
+      rows.forEach((row, index) => {
+        row.querySelector('td').textContent = index + 1;
+      });
+    }
+  </script>
+</body>
+</html>
