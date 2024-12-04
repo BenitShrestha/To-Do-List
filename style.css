@@ -26,6 +26,8 @@ text-align: center;
 }
 h1, h2 {
 margin: 5px 0;
+font-weight: 700;
+font-size: 64px;
 }
 #todo-container {
 width: 90%;
@@ -70,3 +72,33 @@ th {
 background-color: #007bff;
 color: white;
 }
+
+    /* Style for the container */
+    #image-container {
+        position: fixed; /* Keeps it fixed at the bottom-left corner */
+        bottom: 10px; /* Distance from the bottom */
+        left: 10px; /* Distance from the left */
+        width: 300px; /* Increased width of the container */
+        height: 300px; /* Increased height of the container */
+        background-color: black; /* Black background */
+        border-radius: 20px; /* More rounded corners */
+        box-shadow: 0px 8px 12px rgba(0, 0, 0, 0.5); /* Optional: stronger shadow */
+        overflow: hidden; /* Ensures the image fits within the container */
+        display: flex; /* Center the image inside the container */
+        align-items: center;
+        justify-content: center;
+      }
+  
+      /* Image styling */
+      #image-container img {
+        max-width: 100%; /* Ensure the image fits within the container */
+        max-height: 100%; /* Maintain aspect ratio */
+        object-fit: cover; /* Covers the container nicely */
+        margin: auto;
+      }
+
+      #cont {
+        padding: 10px;
+        border:1px solid black;
+        margin: auto;
+      }
